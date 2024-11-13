@@ -1,0 +1,59 @@
+﻿@model SV20T1020275.DomainModels.Supplier
+@{
+
+}
+
+<div class="box box-primary">
+    <div class="box-body">
+        <form action="~/Supplier/Save" method="post">
+            <input type="hidden" name="SupplierID" value="@Model.SupplierID" />
+            <div class="form-group">
+                <label>Tên nhà cung cấp:</label>
+                @Html.TextBoxFor(m => m.SupplierName, new{ @class="form-control", @autofocus="autofocus"})
+                @Html.ValidationMessage(nameof(Model.SupplierName), new {@style="color:#f00"})
+            </div>
+
+            <div class="form-group">
+                <label>Tên giao dịch:</label>
+                @Html.TextBoxFor(m => m.ContactName, new{ @class="form-control"})
+                @Html.ValidationMessage(nameof(Model.ContactName), new {@style="color:#f00"})
+            </div>
+
+            <div class="form-group">
+                <label>Số điện thoại:</label>
+                @Html.TextBoxFor(m => m.Phone, new{ @class="form-control"})
+            </div>
+
+            <div class="form-group">
+                <label>Emai:</label>
+                @Html.TextBoxFor(m => m.Email, new{ @class="form-control"})
+                @Html.ValidationMessage(nameof(Model.Email), new {@style="color:#f00"})
+            </div>
+
+            <div class="form-group">
+                <label>Địa chỉ:</label>
+                @Html.TextBoxFor(m => m.Address, new{ @class="form-control"})
+            </div>
+
+            <div class="form-group">
+                <label>Tỉnh/thành:</label>
+                @Html.DropDownListFor(m => m.Province, SelectListHelper.Province(), new {@class="form-control"})
+                @Html.ValidationMessage(nameof(Model.Province), new {@style="color:#f00"})
+            </div>
+
+            <div class="form-group">
+                @Html.ValidationMessage("Error", new {@style="color:#f00"})
+            </div>
+
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-floppy-o"></i>
+                    Lưu dữ liệu
+                </button>
+                <a href="~/Supplier" class="btn btn-defaut">
+                    Quay lại
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+﻿@using SV20T1020275.DomainModels
+@{
+    Layout = null;
+}
+@model OrderSearchResult
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+        <p style="margin:10px 0 10px 0">
+            Có <strong>@Model.RowCount</strong> đơn hàng trong tổng số <strong>@Model.PageCount</strong> trang
+        </p>
+        <thead>
+            <tr class="bg-primary">
+                <th>Khách hàng</th>
+                <th>Ngày lập</th>
+                <th>Nhân viên phụ trách</th>
+                <th>Thời điểm duyệt</th>
+                <th>Người giao hàng</th>
+                <th>Ngày nhận giao hàng</th>
+                <th>Thời điểm kết thúc</th>
+                <th>Trạng thái</th>
+                <th style="width:40px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Data.Count() == 0)
+            {
+                <tr style="text-align:center">
+                    <td colspan="9" style="color:red;">
+                        Trạng thái đơn hàng hoặc Khoản thời gian này không có đơn hàng
+                    </td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var item in Model.Data)
+                {
+                    <tr>
+                        <td>@item.CustomerName</td>
+                        <td>@item.OrderTime.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @item.EmployeeName
+                        </td>
+                        <td>
+                            @if (item.AcceptTime != null)
+                            {
+                                <text>@item.AcceptTime.Value.ToString("dd/MM/yyyy")</text>
+                            }
+
+                        </td>
+
+                        <td>@item.ShipperName</td>
+                        <td>@item.ShippedTime</td>
+                        <td>
+                            @if (item.FinishedTime != null)
+                            {
+                                <text>@item.FinishedTime.Value.ToString("dd/MM/yyyy")</text>
+                            }
+
+                        </td>
+
+                        <td>@item.StatusDescription</td>
+                        <td>
+                            <a href="~/Order/Details/@item.OrderID" class="btn btn-info btn-xs">
+                                <i class="glyphicon glyphicon-th-list"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+
+
+
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    <ul class="pagination">
+        @for (int p = 1; p <= Model.PageCount; p++)
+        {
+            if (p == Model.Page)
+            {
+                <li class="active"><a href="#">@p</a></li>
+            }
+            else
+            {
+                <li><a href="javascript:;" onclick="doSearch('#formSearch',@p)">@p</a></li>
+            }
+
+        }
+
+
+    </ul>
+</div>
